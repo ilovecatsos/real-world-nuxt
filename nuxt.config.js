@@ -35,5 +35,19 @@ export default {
   axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  // Copied from https://stackoverflow.com/questions/54173375/potentially-fixable-with-the-fix-option/54210573
+  // To fix eslint compiler problems
+  build: {
+    extend(config, ctx) {
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/,
+        options: {
+          fix: true,
+        },
+      })
+    },
+  },
 }
